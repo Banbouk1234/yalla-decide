@@ -1,0 +1,8 @@
+{
+  "name": "Yalla Decide",
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:20",
+  "forwardPorts": [3000],
+  "portsAttributes": { "3000": { "label": "Yalla Decide", "onAutoForward": "silent" } },
+  "postCreateCommand": "npm install",
+  "postStartCommand": "bash -lc 'gh codespace ports visibility 3000:public -c $CODESPACE_NAME || true; echo \"PUBLIC URL: https://$CODESPACE_NAME-3000.app.github.dev\"; nohup npm start > server.log 2>&1 &'"
+}
