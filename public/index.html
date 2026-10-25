@@ -180,7 +180,7 @@ h3{font-size:14px}
 
 /* ---------- i18n ---------- */
 const T={
-en:{brand:"YALLA DECIDE",h1:"NOBODY DECIDES? WE DO.",tag:"Make a room. Share the link. Everyone answers on their own phone. The game picks the night and roasts you for it.",
+en:{brand:"YALLA DECIDE",h1:"NOBODY DECIDES? WE DO.",tag:"Everyone drops one idea. The AI writes questions about those ideas, grills each of you, and picks the one that fits the group. Then roasts you.",
  yourName:"Your name",namePh:"What do they call you",create:"Create a room",join:"Join a room",codePh:"Room code",joinBtn:"Join",back:"Back",
  roomName:"Room name",roomPh:"Friday gang, Cousins, Office…",subject:"What are we deciding?",alcohol:"Alcohol?",yes:"Yes",no:"No",
  pass:"Room password (optional)",passPh:"Leave empty for an open room",area:"Where are you starting from?",areaPh:"Area, e.g. JVC, Marina",
@@ -192,10 +192,10 @@ en:{brand:"YALLA DECIDE",h1:"NOBODY DECIDES? WE DO.",tag:"Make a room. Share the
  verdict:"THE VERDICT",vetoHint:"Everyone gets one veto.",veto:"Veto",vetoed:"VETOED",yourVetoUsed:"Veto used",
  spin:"Still arguing? Spin",spinning:"Spinning…",final:"FINAL ANSWER",driver:"Designated driver",driverSub:"Sober, responsible, allowed to judge everyone.",noDriver:"Nobody is driving",noDriverSub:"Taxi it is.",
  roasts:"ROASTS",blame:"Blame someone",blamed:n=>`${n} is officially to blame for tonight.`,again:"Play again",aiOff:"GPT is off on this server, so picks come from built-in rules.",
- subjects:{food:"Food",drinks:"Drinks",talk:"Sit & talk",brunch:"Brunch",activity:"Activity",night:"Night out"},
- errs:{no_room:"No room with that code.",bad_password:"Wrong password.",full:"Room is full.",no_player:"Session expired, join again.",server:"Server hiccup, try again.",conn:"Connection lost. Reconnecting…"},
- suggestQ:"Got a place in mind?",suggestSub:"Optional. Your suggestion goes into the verdict with everyone else's answers.",suggestPh:"e.g. Chicken House JVC, Zuma, that rooftop in Marina…",suggestSkip:"No idea, you decide",suggestSave:"Suggest it",suggested:"Suggestions",useLoc:"📍 Use my location",locOn:"📍 Location set",locErr:"Location not allowed, type the area instead",maps:"Open in Maps",open:"open now",passNeeded:"This room has a password",foot:"NOBODY HAS TO BE THE ONE WHO DECIDED"},
-ar:{brand:"يلا نقرر",h1:"ما حدا بيقرر؟ نحنا منقرر.",tag:"اعمل غرفة. شارك الرابط. كل واحد بيجاوب من موبايلو. اللعبة بتختار السهرة وبتفرحسكم عليها.",
+ subjects:{any:"Anything",food:"Food",drinks:"Drinks",talk:"Sit & talk",brunch:"Brunch",activity:"Activity",night:"Night out"},
+ errs:{started:"This game already started. Ask the host for a new round.",no_room:"No room with that code.",bad_password:"Wrong password.",full:"Room is full.",no_player:"Session expired, join again.",server:"Server hiccup, try again.",conn:"Connection lost. Reconnecting…"},
+ suggestQ:"What do YOU want to do tonight?",suggestSub:"One suggestion each. The game builds the questions from them.",suggestPh:"e.g. Shisha at Marina, Zuma, bowling in JBR, Netflix at Omar's…",suggestSave:"Lock my suggestion",suggestEdit:"Change",suggested:"On the table",needSug:"Everyone must suggest something first",waitingSug:n=>`Waiting for ${n} to suggest…`,generating:"WRITING YOUR QUESTIONS…",generating2:"Reading the suggestions. Preparing the interrogation.",by:n=>`by ${n}`,fit:"fit",yourQs:"You get 5 random questions. Answer fast, answer honest.",tag2:"Everyone drops one idea. The AI grills you about them. Then it picks the one that fits the group.",useLoc:"📍 Use my location",locOn:"📍 Location set",locErr:"Location not allowed, type the area instead",maps:"Open in Maps",open:"open now",passNeeded:"This room has a password",foot:"NOBODY HAS TO BE THE ONE WHO DECIDED"},
+ar:{brand:"يلا نقرر",h1:"ما حدا بيقرر؟ نحنا منقرر.",tag:"كل واحد بيرمي فكرة. الذكاء الاصطناعي بيكتب أسئلة عن هالأفكار، بيحقق معكم، وبيختار اللي بيناسب الشلة. وبعدين بيفرحسكم.",
  yourName:"اسمك",namePh:"شو بيسمّوك",create:"اعمل غرفة",join:"فوت على غرفة",codePh:"كود الغرفة",joinBtn:"فوت",back:"رجوع",
  roomName:"اسم الغرفة",roomPh:"شلة الجمعة، ولاد العم، الشغل…",subject:"شو عم نقرر؟",alcohol:"كحول؟",yes:"إي",no:"لأ",
  pass:"كلمة سر للغرفة (اختياري)",passPh:"خليها فاضية لغرفة مفتوحة",area:"من وين منطلقين؟",areaPh:"المنطقة، مثلاً JVC أو المارينا",
@@ -207,18 +207,18 @@ ar:{brand:"يلا نقرر",h1:"ما حدا بيقرر؟ نحنا منقرر.",t
  verdict:"الحكم",vetoHint:"كل واحد إلو فيتو واحد.",veto:"فيتو",vetoed:"مرفوض",yourVetoUsed:"استعملت الفيتو",
  spin:"لسا عم تتناقشوا؟ دوّر",spinning:"عم يدوّر…",final:"الجواب النهائي",driver:"السوّاق المسؤول",driverSub:"صاحي، مسؤول، ومسموحلو يحكم عالكل.",noDriver:"ما حدا سايق",noDriverSub:"تكسي وخلصنا.",
  roasts:"فرحسة",blame:"لوّم حدا",blamed:n=>`${n} رسمياً هو المسؤول عن الليلة.`,again:"العب كمان مرة",aiOff:"GPT مطفّي عالسيرفر، الاقتراحات من القواعد المدمجة.",
- subjects:{food:"أكل",drinks:"مشروبات",talk:"قعدة وحكي",brunch:"برانش",activity:"نشاط",night:"سهرة"},
- errs:{no_room:"ما في غرفة بهالكود.",bad_password:"كلمة السر غلط.",full:"الغرفة مليانة.",no_player:"الجلسة خلصت، فوت من جديد.",server:"غلطة بالسيرفر، جرّب كمان مرة.",conn:"انقطع الاتصال. عم نرجع نوصل…"},
- suggestQ:"ببالك مكان؟",suggestSub:"اختياري. اقتراحك بيفوت عالحكم مع أجوبة الكل.",suggestPh:"مثلاً Chicken House JVC، زوما، الروف توب بالمارينا…",suggestSkip:"ما عندي فكرة، قرروا إنتو",suggestSave:"اقترحو",suggested:"الاقتراحات",useLoc:"📍 استعمل موقعي",locOn:"📍 الموقع محدد",locErr:"الموقع مش مسموح، اكتب المنطقة",maps:"افتح بالخرائط",open:"فاتح هلق",passNeeded:"هالغرفة إلها كلمة سر",foot:"ما حدا لازم يكون هو اللي قرّر"}};
+ subjects:{any:"أي شي",food:"أكل",drinks:"مشروبات",talk:"قعدة وحكي",brunch:"برانش",activity:"نشاط",night:"سهرة"},
+ errs:{started:"اللعبة بلّشت. اطلب من المضيف جولة جديدة.",no_room:"ما في غرفة بهالكود.",bad_password:"كلمة السر غلط.",full:"الغرفة مليانة.",no_player:"الجلسة خلصت، فوت من جديد.",server:"غلطة بالسيرفر، جرّب كمان مرة.",conn:"انقطع الاتصال. عم نرجع نوصل…"},
+ suggestQ:"شو بدك تعمل إنت الليلة؟",suggestSub:"اقتراح واحد لكل شخص. اللعبة بتبني الأسئلة منها.",suggestPh:"مثلاً أرجيلة بالمارينا، زوما، بولينغ بـ JBR، نتفلكس عند عمر…",suggestSave:"ثبّت اقتراحي",suggestEdit:"غيّر",suggested:"عالطاولة",needSug:"لازم الكل يقترح شي أول",waitingSug:n=>`ناطرين ${n} يقترحوا…`,generating:"عم نكتب أسئلتكم…",generating2:"عم نقرا الاقتراحات. منحضّر التحقيق.",by:n=>`من ${n}`,fit:"مناسب",yourQs:"بتاخد ٥ أسئلة عشوائية. جاوب بسرعة وبصراحة.",useLoc:"📍 استعمل موقعي",locOn:"📍 الموقع محدد",locErr:"الموقع مش مسموح، اكتب المنطقة",maps:"افتح بالخرائط",open:"فاتح هلق",passNeeded:"هالغرفة إلها كلمة سر",foot:"ما حدا لازم يكون هو اللي قرّر"}};
 let lang="en";try{lang=localStorage.getItem("yd-lang")||"en"}catch(e){}
 const t=(k,...a)=>{const v=T[lang][k];return typeof v==="function"?v(...a):v};
-const SUBJ_IC={food:"🍽️",drinks:"🍹",talk:"🛋️",brunch:"🥂",activity:"🎯",night:"🪩"};
+const SUBJ_IC={any:"🎲",food:"🍽️",drinks:"🍹",talk:"🛋️",brunch:"🥂",activity:"🎯",night:"🪩"};
 
 /* ---------- client state + socket ---------- */
 const $=s=>document.querySelector(s);const el=(tag,cls,html)=>{const e=document.createElement(tag);if(cls)e.className=cls;if(html!=null)e.innerHTML=html;return e};
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const ini=n=>String(n).trim().slice(0,1).toUpperCase();
-let C={screen:"home",code:null,playerId:null,state:null,err:null,qi:0,answers:{},suggesting:false,suggestion:"",spinRot:0,shownWinner:null,joinLocked:false,form:{name:"",room:"",subject:"food",alcohol:false,pass:"",area:"",code:"",loc:null}};
+let C={screen:"home",code:null,playerId:null,state:null,err:null,qi:0,answers:{},suggesting:false,suggestion:"",spinRot:0,shownWinner:null,joinLocked:false,form:{name:"",room:"",subject:"any",alcohol:false,pass:"",area:"",code:"",loc:null,sug:""}};
 try{C.form.name=localStorage.getItem("yd-name")||""}catch(e){}
 const urlCode=(location.pathname.match(/^\/r\/([A-Za-z0-9]{4})/)||[])[1]||new URLSearchParams(location.search).get("r");
 if(urlCode){C.form.code=urlCode.toUpperCase();C.screen="join"}
@@ -231,7 +231,7 @@ function connect(){
   ws.onmessage=e=>{const m=JSON.parse(e.data);
     if(m.type==="joined"){C.code=m.code;C.playerId=m.playerId;C.err=null;try{localStorage.setItem("yd-session",JSON.stringify({code:m.code,playerId:m.playerId}))}catch(e){}history.replaceState(null,"","/r/"+m.code);}
     if(m.type==="state"){const prev=C.state;C.state=m.state;C.screen="game";
-      if(prev&&prev.phase!==m.state.phase){C.qi=0;C.suggesting=false;if(m.state.phase==="answer"){C.answers={};C.suggestion=""}if(m.state.phase==="verdict"||m.state.phase==="reveal")burst();window.scrollTo(0,0)}
+      if(prev&&prev.phase!==m.state.phase){C.qi=0;C.editSug=false;if(m.state.phase==="answer"){C.answers={}}if(m.state.phase==="verdict"||m.state.phase==="reveal")burst();window.scrollTo(0,0)}
       if(m.state.winner&&(!prev||!prev.winner||prev.winner.at!==m.state.winner.at))C.shownWinner=null;}
     if(m.type==="error"){C.err=m.code;if(m.code==="bad_password")C.joinLocked=true;if(m.code==="no_player"){try{localStorage.removeItem("yd-session")}catch(e){}}}
     render()};
@@ -251,11 +251,13 @@ const gl=(txt,tag="h1")=>`<${tag}><span class="glitch" data-t="${esc(txt)}">${es
 function render(){
   const v=$("#view");v.innerHTML="";
   if(C.err==="conn")v.appendChild(el("p","err",esc(t("errs").conn)));
-  if(C.screen==="game"&&C.state){({lobby:rLobby,answer:rAnswer,reveal:rReveal,thinking:rThinking,verdict:rVerdict}[C.state.phase]||rLobby)(v);}
+  if(C.screen==="game"&&C.state){({lobby:rLobby,generating:rGenerating,answer:rAnswer,reveal:rReveal,thinking:rThinking,verdict:rVerdict}[C.state.phase]||rLobby)(v);}
   else if(C.screen==="create")rCreate(v);else if(C.screen==="join")rJoin(v);else rHome(v);
   v.appendChild(el("div","foot",esc(t("foot"))));
 }
 function nameField(){return `<div><div class="lbl">${t("yourName")}</div><input class="field" id="name" placeholder="${t("namePh")}" value="${esc(C.form.name)}" maxlength="18" autocomplete="nickname"></div>`}
+function sugField(){return `<div><div class="lbl">💡 ${t("suggestQ")}</div><input class="field" id="sug" placeholder="${esc(t("suggestPh"))}" value="${esc(C.form.sug)}" maxlength="80"><p class="note" style="margin:6px 0 0">${t("suggestSub")}</p></div>`}
+function readSug(){C.form.sug=$("#sug").value.trim();return C.form.sug}
 function readName(){C.form.name=$("#name").value.trim();try{localStorage.setItem("yd-name",C.form.name)}catch(e){}return C.form.name}
 
 function rHome(v){
@@ -276,7 +278,8 @@ function rCreate(v){
   const lb=el("button","btn block"+(f.loc?" cy":""),f.loc?t("locOn"):t("useLoc"));
   lb.onclick=()=>{if(!navigator.geolocation)return toast(t("locErr"));lb.disabled=true;navigator.geolocation.getCurrentPosition(pos=>{f.loc={lat:pos.coords.latitude,lng:pos.coords.longitude};keep();render()},()=>{lb.disabled=false;toast(t("locErr"))},{enableHighAccuracy:false,timeout:8000,maximumAge:60000})};
   p.appendChild(lb);
-  const go=el("button","btn pri block",t("go"));go.onclick=()=>{keep();send({type:"create",name:f.name,room:f.room,subject:f.subject,alcohol:f.alcohol,password:f.pass,area:f.area,loc:f.loc})};
+  p.insertAdjacentHTML("beforeend",sugField());
+  const go=el("button","btn pri block",t("go"));go.onclick=()=>{keep();if(!readSug())return $("#sug").focus();send({type:"create",name:f.name,room:f.room,subject:f.subject,alcohol:f.alcohol,password:f.pass,area:f.area,loc:f.loc,suggestion:f.sug})};
   const back=el("button","btn ghost block",t("back"));back.onclick=()=>{keep();C.screen="home";render()};
   p.appendChild(go);p.appendChild(back);v.appendChild(p);
   function keep(){f.room=$("#room").value;f.pass=$("#pass").value;f.area=$("#area").value}
@@ -284,16 +287,16 @@ function rCreate(v){
 function rJoin(v){
   v.insertAdjacentHTML("beforeend",gl(t("join"),"h2"));
   const p=el("div","panel");const f=C.form;
-  p.innerHTML=nameField()+`<div><div class="lbl">${t("codePh")}</div><input class="field" id="code" placeholder="ABCD" value="${esc(f.code)}" maxlength="4" style="text-transform:uppercase;letter-spacing:.3em;font-family:var(--pix);font-size:18px" autocapitalize="characters"></div>`;
+  p.innerHTML=nameField()+`<div><div class="lbl">${t("codePh")}</div><input class="field" id="code" placeholder="ABCD" value="${esc(f.code)}" maxlength="4" style="text-transform:uppercase;letter-spacing:.3em;font-family:var(--pix);font-size:18px" autocapitalize="characters"></div>`+sugField();
   if(C.joinLocked)p.insertAdjacentHTML("beforeend",`<div><div class="lbl">🔒 ${t("passNeeded")}</div><input class="field" id="jpass" type="password" placeholder="••••••" autocomplete="off"></div>`);
   if(C.err&&C.err!=="conn")p.appendChild(el("p","err",esc(t("errs")[C.err]||C.err)));
-  const b=el("button","btn cy block",t("joinBtn"));b.onclick=()=>{if(!readName())return $("#name").focus();f.code=$("#code").value.trim().toUpperCase();if(f.code.length<4)return $("#code").focus();send({type:"join",code:f.code,name:f.name,password:C.joinLocked?$("#jpass").value:""})};
+  const b=el("button","btn cy block",t("joinBtn"));b.onclick=()=>{if(!readName())return $("#name").focus();f.code=$("#code").value.trim().toUpperCase();if(f.code.length<4)return $("#code").focus();if(!readSug())return $("#sug").focus();send({type:"join",code:f.code,name:f.name,password:C.joinLocked?$("#jpass").value:"",suggestion:f.sug})};
   const back=el("button","btn ghost block",t("back"));back.onclick=()=>{C.screen="home";C.err=null;C.joinLocked=false;render()};
   p.appendChild(b);p.appendChild(back);v.appendChild(p);
 }
 function playersList(s,showKick){
   const w=el("div","players");s.players.forEach(p=>{const d=el("span","pl"+(p.online?"":" off")+(p.locked?" lock":""));
-    d.innerHTML=`<span class="av" style="background:${p.color}">${esc(ini(p.name))}</span><span>${esc(p.name)}</span><span class="st">${p.id===s.hostId?"👑":""}${p.id===C.playerId?" · "+t("you"):""}${p.online?"":" · "+t("offline")}${p.locked?" ✓":""}</span>`;
+    d.innerHTML=`<span class="av" style="background:${p.color}">${esc(ini(p.name))}</span><span>${esc(p.name)}</span><span class="st">${p.id===s.hostId?"👑":""}${p.id===C.playerId?" · "+t("you"):""}${p.online?"":" · "+t("offline")}${p.locked?" ✓":""}${s.phase==="lobby"?(p.suggestion?" 💡":" …"):""}</span>`;
     if(showKick&&isHost()&&p.id!==C.playerId){const k=el("button","k","×");k.onclick=()=>send({type:"kick",playerId:p.id});d.appendChild(k)}w.appendChild(d)});return w;
 }
 function rLobby(v){
@@ -312,11 +315,18 @@ function rLobby(v){
   if(navigator.share){const sh=el("button","btn cy block",t("share"));sh.onclick=()=>navigator.share({title:"Yalla Decide",text:t("waText",s.name,""),url:link}).catch(()=>{});row2.appendChild(sh)}
   p.appendChild(row2);v.appendChild(p);
   const pp=el("div","panel");pp.innerHTML=`<div class="lbl">${t("lobby")} · ${s.players.length}</div>`;pp.appendChild(playersList(s,true));v.appendChild(pp);
-  if(isHost()){const b=el("button","btn pri block",t("start"));b.disabled=s.players.length<2;b.onclick=()=>send({type:"start"});v.appendChild(b);if(s.players.length<2)v.appendChild(el("p","note",esc(t("needTwo"))))}
-  else v.insertAdjacentHTML("beforeend",`<div class="wait"><span class="blink"></span>${t("waitHost")}</div>`);
+  const m=me();const sp=el("div","panel");sp.innerHTML=`<div class="lbl">💡 ${t("suggested")}</div>`;
+  s.players.forEach(p=>{const r=el("div","roast");r.innerHTML=`<span class="av" style="background:${p.color}">${esc(ini(p.name))}</span><p><b>${esc(p.name)}</b> ${p.suggestion?"→ "+esc(p.suggestion):`<span style="color:var(--muted)">…</span>`}</p>`;sp.appendChild(r)});
+  if(m&&(C.editSug||!m.suggestion)){sp.insertAdjacentHTML("beforeend",`<input class="field" id="sug" placeholder="${esc(t("suggestPh"))}" value="${esc(m.suggestion||C.form.sug||"")}" maxlength="80">`);const sb=el("button","btn cy block",t("suggestSave"));sb.onclick=()=>{const v2=$("#sug").value.trim();if(!v2)return $("#sug").focus();C.form.sug=v2;C.editSug=false;send({type:"suggest",text:v2})};sp.appendChild(sb)}
+  else if(m){const eb=el("button","btn ghost block",t("suggestEdit"));eb.onclick=()=>{C.editSug=true;render()};sp.appendChild(eb)}
+  v.appendChild(sp);
+  const missing=s.players.filter(p=>!p.suggestion).map(p=>p.name);
+  if(isHost()){const b=el("button","btn pri block",t("start"));b.disabled=s.players.length<2||missing.length>0;b.onclick=()=>send({type:"start"});v.appendChild(b);if(s.players.length<2)v.appendChild(el("p","note",esc(t("needTwo"))));else if(missing.length)v.appendChild(el("p","note",esc(t("waitingSug",missing.join(", ")))))}
+  else v.insertAdjacentHTML("beforeend",`<div class="wait"><span class="blink"></span>${missing.length?esc(t("waitingSug",missing.join(", "))):t("waitHost")}</div>`);
 }
+function rGenerating(v){v.insertAdjacentHTML("beforeend",`<div class="think">${gl(t("generating"),"h2")}<div class="bar"><i></i></div><p class="note">${t("generating2")}</p></div>`)}
 function rAnswer(v){
-  const s=C.state,m=me();const QS=s.questions;
+  const s=C.state,m=me();const QS=(m?m.qids:[]).map(id=>s.pool.find(q=>q.id===id)).filter(Boolean);if(!QS.length)return rGenerating(v);
   if(m&&m.locked){
     const n=s.players.filter(p=>p.locked).length;
     v.insertAdjacentHTML("beforeend",gl(t("lockedWait"),"h2")+`<div class="wait"><span class="blink"></span>${t("lockedN",n,s.players.length)}</div>`);
@@ -324,39 +334,23 @@ function rAnswer(v){
     if(isHost()&&n>=2){const b=el("button","btn block",t("forceReveal"));b.onclick=()=>send({type:"reveal"});v.appendChild(b)}
     return;
   }
-  if(C.suggesting)return rSuggest(v);
-  const q=QS[C.qi],L=q[lang]||q.en;
-  v.insertAdjacentHTML("beforeend",`<div class="row" style="justify-content:space-between;align-items:center"><span class="cap">${SUBJ_IC[s.subject]} ${esc(s.name)}</span><span class="cap" style="color:var(--cyan)">${t("qOf",C.qi+1,QS.length)}</span></div><div class="prog"><i style="width:${C.qi/QS.length*100}%"></i></div><div class="q"><h2>${esc(L.q)}</h2><p class="sub">${esc(L.s)}</p></div>`);
+  const q=QS[Math.min(C.qi,QS.length-1)],L=q[lang]||q.en;
+  v.insertAdjacentHTML("beforeend",`<div class="row" style="justify-content:space-between;align-items:center"><span class="cap">${SUBJ_IC[s.subject]} ${esc(s.name)}</span><span class="cap" style="color:var(--cyan)">${t("qOf",C.qi+1,QS.length)}</span></div><div class="prog"><i style="width:${C.qi/QS.length*100}%"></i></div><div class="q"><h2>${esc(L.q)}</h2><p class="sub">${esc(L.s||"")}</p></div>`);
   const g=el("div","opts");
   q.opts.forEach(o=>{const b=el("button","opt"+(o.wide?" wide":"")+(C.answers[q.id]===o.v?" sel":""));b.innerHTML=`<span class="ic">${o.ic}</span><span class="t">${esc(o[lang]||o.en)}</span>`;
-    b.onclick=()=>{C.answers[q.id]=o.v;g.querySelectorAll(".opt").forEach(x=>x.classList.remove("sel"));b.classList.add("sel");send({type:"answer",answers:C.answers});setTimeout(()=>{if(C.qi<QS.length-1){C.qi++;render();window.scrollTo(0,0)}else{C.suggesting=true;render();window.scrollTo(0,0)}},200)};g.appendChild(b)});
+    b.onclick=()=>{C.answers[q.id]=o.v;g.querySelectorAll(".opt").forEach(x=>x.classList.remove("sel"));b.classList.add("sel");send({type:"answer",answers:C.answers});setTimeout(()=>{if(C.qi<QS.length-1){C.qi++;render();window.scrollTo(0,0)}else render()},200)};g.appendChild(b)});
   v.appendChild(g);
   const nav=el("div","row");if(C.qi>0){const bk=el("button","btn ghost","←");bk.onclick=()=>{C.qi--;render()};nav.appendChild(bk)}
+  if(QS.every(q=>C.answers[q.id])){const lk=el("button","btn pri block",t("lock"));lk.onclick=()=>send({type:"answer",answers:C.answers,locked:true});nav.appendChild(lk)}
   v.appendChild(nav);
 }
-function rSuggest(v){
-  const s=C.state;
-  v.insertAdjacentHTML("beforeend",`<div class="row" style="justify-content:space-between;align-items:center"><span class="cap">${SUBJ_IC[s.subject]} ${esc(s.name)}</span><span class="cap" style="color:var(--cyan)">💡</span></div><div class="prog"><i style="width:100%"></i></div><div class="q"><h2>${esc(t("suggestQ"))}</h2><p class="sub">${esc(t("suggestSub"))}</p></div>`);
-  const p=el("div","panel");p.innerHTML=`<input class="field" id="sug" placeholder="${esc(t("suggestPh"))}" maxlength="60" value="${esc(C.suggestion||"")}">`;
-  const a=el("button","btn pri block",t("suggestSave"));a.onclick=()=>{C.suggestion=$("#sug").value.trim();if(!C.suggestion)return $("#sug").focus();send({type:"suggest",text:C.suggestion});send({type:"answer",answers:C.answers,locked:true})};
-  const b=el("button","btn block",t("suggestSkip"));b.onclick=()=>{send({type:"answer",answers:C.answers,locked:true})};
-  const bk=el("button","btn ghost block","← "+t("back"));bk.onclick=()=>{C.qi=s.questions.length-1;C.suggesting=false;render()};
-  p.appendChild(a);p.appendChild(b);p.appendChild(bk);v.appendChild(p);
-}
 function revealLines(s){
-  const P=s.players.filter(p=>p.answers),n=P.length,L=lang==="ar";const count=(id,v)=>P.filter(p=>p.answers[id]===v).length,who=(id,v)=>P.filter(p=>p.answers[id]===v).map(p=>p.name);const out=[];
-  const c5=count("distance","5");if(c5)out.push({ic:"🐌",b:L?`${c5} من ${n} ما بدهم يمشوا أكتر من ٥ دقايق.`:`${c5} of ${n} refuse to travel more than 5 minutes.`,s:L?"عارفين مين.":"We know who."});
-  const dr=who("status","driving");if(dr.length)out.push({ic:"🔑",b:L?`${dr.join(" و ")} سايق الليلة.`:`${dr.join(" & ")} ${dr.length>1?"are":"is"} driving tonight.`,s:L?"عاملوهم منيح.":"Be nice to them."});else out.push({ic:"🚕",b:L?"ما حدا سايق. تكسي للكل.":"Nobody's driving. Taxi for everyone.",s:L?"أو حدا بيكذب.":"Or someone is lying."});
-  const dk=count("status","drinking")+count("status","floating");if(dk)out.push({ic:"🍹",b:L?`${dk} جايين للسهرة بنيّة.`:`${dk} ${dk>1?"people are":"person is"} here with intentions.`,s:L?"الليلة طويلة.":"It's going to be a long night."});
-  const br=count("budget","broke");if(br)out.push({ic:"🪙",b:L?`حدا مفلّس (${br}).`:`Someone is broke (${br}, actually).`,s:L?"اختاروا مكان رحيم.":"Choose somewhere merciful."});
-  const ul=who("budget","unlimited");if(ul.length)out.push({ic:"💸",b:L?`${ul[0]} حاسس إنو المصاري مش حقيقية.`:`${ul[0]} thinks money isn't real.`,s:L?"خليه يدفع.":"Let them pay."});
-  const dead=who("energy","dead");if(dead.length)out.push({ic:"🪦",b:L?`${dead.join("، ")} ميت من جوّا.`:`${dead.join(", ")} ${dead.length>1?"are":"is"} dead inside.`,s:L?"خففوا عليهم.":"Go easy."});
-  const ch=who("energy","chaos");if(ch.length)out.push({ic:"🔥",b:L?`${ch[0]} بوضع الفوضى.`:`${ch[0]} is in chaos mode.`,s:L?"راقبوه.":"Keep an eye on them."});
-  if(count("mood","dance")===1)out.push({ic:"🪩",b:L?"شخص واحد بس بدو يرقص.":"Exactly one person wants to dance.",s:L?"وكلنا منعرف مين.":"And everyone knows who."});
-  const ss=count("dealbreaker","shisha");if(ss)out.push({ic:"💨",b:L?`${ss} ما بيتحمّلوا دخان الأرجيلة.`:`${ss} can't stand shisha smoke.`,s:L?"نقاش مغلق.":"Discussion closed."});
-  const sun=who("time","sunrise");if(sun.length)out.push({ic:"🌅",b:L?`${sun[0]} ناوي يسهر لطلوع الشمس.`:`${sun[0]} is planning to see the sunrise.`,s:L?"بكرا شغل.":"It's a work night."});
-  const sh=who("drink","shots");if(sh.length)out.push({ic:"🥃",b:L?`${sh[0]} طالب شوتات. كتير.`:`${sh[0]} ordered shots. Many.`,s:L?"حدا يراقب الباب.":"Someone watch the door."});
-  return out.slice(0,7);
+  const P=s.players.filter(p=>p.answers),L=lang,out=[];
+  for(const q of s.pool){const counts={};let n=0;for(const p of P){const v=p.answers[q.id];if(!v)continue;n++;counts[v]=(counts[v]||0)+1}if(!n)continue;
+    const top=Object.entries(counts).sort((a,b)=>b[1]-a[1])[0];const o=q.opts.find(o=>o.v===top[0]);if(!o)continue;
+    const unanimous=top[1]===n&&n>1;
+    out.push({ic:o.ic,b:`${(q[L]||q.en).q}`,s:`${top[1]}/${n} → ${o[L]||o.en}${unanimous?(L==="ar"?" · بالإجماع":" · unanimous"):""}`});}
+  return out.slice(0,12);
 }
 function rReveal(v){
   const s=C.state;
@@ -373,7 +367,7 @@ function rVerdict(v){
   const head=s.headline&&s.headline[L]?s.headline[L]:t("verdict");
   v.insertAdjacentHTML("beforeend",`<div><div class="cap">${esc(s.name)}</div>${gl(head,"h2")}${s.aiUsed?"":`<p class="note" style="margin-top:6px">${t("aiOff")}</p>`}<p class="note" style="margin-top:6px">${t("vetoHint")}${myVeto?" · "+t("yourVetoUsed"):""}</p></div>`);
   s.picks.forEach((p,i)=>{const c=el("div","pick"+(i===0&&!p.veto?" top":"")+(p.veto?" vetoed":""));
-    c.innerHTML=`<span class="rank">#${i+1}</span><h3>${esc(p.name)}</h3><div class="type">${esc(p.type?.[L]||p.type?.en||"")}</div><p>${esc(p.why?.[L]||p.why?.en||"")}</p><div class="meta">${p.km!=null?`<span class="tag">📍 ${esc(p.km)} km</span>`:p.minutes?`<span class="tag">🚗 ${esc(p.minutes)} ${L==="ar"?"د":"min"}</span>`:""}${p.rating?`<span class="tag">★ ${esc(p.rating)} (${esc(p.reviews||0)})</span>`:""}${p.price?`<span class="tag">${esc(p.price)}</span>`:""}${p.maps?`<a class="tag" style="color:var(--cyan);text-decoration:none" href="${esc(p.maps)}" target="_blank" rel="noopener">🗺️ ${t("maps")}</a>`:""}${i===0&&!p.veto?`<span class="tag y">★ ${L==="ar"?"الأفضل للشلة":"best fit"}</span>`:""}</div>${p.veto?`<div class="stamp">${t("vetoed")}</div>`:""}`;
+    const owner=s.players.find(x=>x.id===p.by);c.innerHTML=`<span class="rank">#${i+1}</span><h3>${esc(p.name)}</h3><div class="type">${owner?`<span class="av" style="display:inline-grid;width:18px;height:18px;place-items:center;background:${owner.color};color:#0d0d12;font:700 9px var(--pix);vertical-align:middle;margin-inline-end:6px">${esc(ini(owner.name))}</span>`:""}${esc(t("by",p.byName||""))}${p.place&&p.place.toLowerCase()!==String(p.name).toLowerCase()?` · ${esc(p.place)}`:""}</div><p>${esc(p.why?.[L]||p.why?.en||"")}</p><div class="meta">${p.score!=null?`<span class="tag y">${esc(p.score)}% ${t("fit")}</span>`:""}${p.rating?`<span class="tag">★ ${esc(p.rating)} (${esc(p.reviews||0)})</span>`:""}${p.open===true?`<span class="tag" style="color:var(--grn)">● ${t("open")}</span>`:""}${p.price?`<span class="tag">${esc(p.price)}</span>`:""}${p.maps?`<a class="tag" style="color:var(--cyan);text-decoration:none" href="${esc(p.maps)}" target="_blank" rel="noopener">🗺️ ${t("maps")}</a>`:""}${i===0&&!p.veto?`<span class="tag y">★ ${L==="ar"?"الأفضل للشلة":"best fit"}</span>`:""}</div>${p.veto?`<div class="stamp">${t("vetoed")}</div>`:""}`;
     if(!p.veto&&!myVeto&&live.length>1){const vb=el("button","veto","🚫 "+t("veto"));vb.onclick=()=>send({type:"veto",index:i});c.appendChild(vb)}v.appendChild(c)});
   if(s.winner){v.appendChild(el("div","winner",`🎉 ${t("final")}<br>${esc(s.winner.name)}`));}
   if(live.length>1){
