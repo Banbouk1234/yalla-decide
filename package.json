@@ -1,0 +1,15 @@
+{
+  "name": "yalla-decide",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Yalla Decide / يلا نقرر — live group-decision party game",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": { "node": ">=18" },
+  "dependencies": {
+    "express": "^4.19.2",
+    "ws": "^8.17.0"
+  }
+}
