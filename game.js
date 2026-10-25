@@ -39,51 +39,49 @@
     { id: "sweat", en: { q: "Acceptable sweat level tonight:", s: "Be realistic about your outfit." }, ar: { q: "مستوى التعرّق المقبول الليلة:", s: "كون واقعي بلبسك." },
       opts: [{ v: "none", ic: "🧊", en: "Zero. I did my hair.", ar: "صفر. عملت شعري." }, { v: "little", ic: "😅", en: "A glow, not a swamp", ar: "لمعة خفيفة، مش مستنقع" }, { v: "lot", ic: "💦", en: "Soak me. I'm here to suffer.", ar: "غرّقني. جاي أتعذب." }, { v: "any", ic: "🤷", en: "Don't care, didn't shower anyway", ar: "ما بفرق، ما تحممت أصلاً" }] },
   ];
-  const PACKS = {
-    food: ["distance", "status", "budget", "mood", "hunger", "food", "energy", "dealbreaker", "time"],
-    drinks: ["distance", "status", "budget", "mood", "drink", "setting", "energy", "dealbreaker", "time"],
-    talk: ["distance", "status", "budget", "drink", "setting", "hunger", "energy", "dealbreaker", "time"],
-    brunch: ["distance", "status", "budget", "style", "slot", "food", "mood", "dealbreaker"],
-    activity: ["distance", "status", "budget", "type", "sweat", "mood", "energy", "hunger", "time"],
-    night: ["distance", "status", "budget", "drink", "setting", "mood", "energy", "dealbreaker", "time"],
-  };
-  function packFor(subject, alcohol) {
-    return (PACKS[subject] || PACKS.food).map(id => {
-      const q = QUESTIONS.find(q => q.id === id && (!q.subj || q.subj.includes(subject)) && (q.alc === undefined || q.alc === !!alcohol)) || QUESTIONS.find(q => q.id === id);
-      return { ...q, opts: q.opts.filter(o => o.alc === undefined || o.alc === !!alcohol) };
+  // Generic questions (no suggestion needed) that still separate plans.
+  const GENERIC_IDS = ["distance", "status", "budget", "hunger", "energy", "dealbreaker", "time"];
+  const REACT = [
+    { v: "love", ic: "😍", en: "Yes. Take my money.", ar: "إي. خدوا مصاري." },
+    { v: "fine", ic: "🙂", en: "Sure, I'm easy", ar: "ماشي، أنا سهل" },
+    { v: "meh", ic: "😐", en: "Meh. If I must.", ar: "يعني. إذا مضطر." },
+    { v: "no", ic: "🚫", en: "Absolutely not", ar: "أبداً لأ" },
+  ];
+  const TEMPLATES = [
+    { en: (n, s) => [`${n} wants: ${s}. Your honest face:`, "They can't see you. Probably."], ar: (n, s) => [`${n} بدو: ${s}. وجهك الصريح:`, "ما بيشوفوك. على الأغلب."] },
+    { en: (n, s) => [`If the night ends up at "${s}", you:`, "No diplomacy."], ar: (n, s) => [`إذا الليلة خلصت بـ "${s}"، إنت:`, "بلا دبلوماسية."] },
+    { en: (n, s) => [`Rate ${n}'s idea ("${s}") as a plan:`, "It's anonymous. Kind of."], ar: (n, s) => [`قيّم فكرة ${n} ("${s}") كخطة:`, "مجهول. تقريباً."] },
+  ];
+  // Build a question pool from the players' suggestions (fallback when the AI is off).
+  function fallbackPool(room) {
+    const pool = [];
+    room.players.filter(p => p.suggestion).forEach((p, i) => {
+      const tpl = TEMPLATES[i % TEMPLATES.length];
+      const [qe, se] = tpl.en(p.name, p.suggestion), [qa, sa] = tpl.ar(p.name, p.suggestion);
+      pool.push({ id: "s" + p.id.slice(0, 4), about: [p.id.slice(0, 4)], en: { q: qe, s: se }, ar: { q: qa, s: sa }, opts: REACT });
     });
+    GENERIC_IDS.forEach(id => { const q = QUESTIONS.find(q => q.id === id && (q.alc === undefined || q.alc === room.alcohol)); if (q) pool.push({ id, about: [], en: q.en, ar: q.ar, opts: q.opts.filter(o => o.alc === undefined || o.alc === room.alcohol).slice(0, 4) }); });
+    return pool;
   }
-  function ruleVerdict(room) {
-    const P = room.players, n = P.length, count = (id, v) => P.filter(p => p.answers[id] === v).length;
-    const maxMin = Math.min(...P.map(p => ({ "5": 5, "15": 15, "30": 30, any: 60 }[p.answers.distance] || 30)));
-    const broke = count("budget", "broke") > 0, hungry = count("hunger", "starving") + count("hunger", "snack") >= n / 2;
-    const chill = count("mood", "chill") >= count("mood", "loud") + count("mood", "dance"), noShisha = count("dealbreaker", "shisha") > 0;
-    const food = ["levant", "asian", "burger", "italian"].map(v => [v, count("food", v)]).sort((a, b) => b[1] - a[1])[0][0];
-    const area = room.area || "Dubai";
-    const cat = { levant: { en: "Levantine grill house", ar: "مطعم مشاوي شامي" }, asian: { en: "Casual Asian spot", ar: "مطعم آسيوي بسيط" }, burger: { en: "Burger joint", ar: "محل برغر" }, italian: { en: "Pizza & pasta", ar: "بيتزا وباستا" } }[food];
-    const picks = [];
-    const bySubject = {
-      food: () => picks.push({ name: `${cat.en} near ${area}`, type: cat, why: { en: `${hungry ? "Most of you are hungry and " : ""}${food} won the secret vote.${broke ? " Budget-friendly, nobody has to pretend." : ""}`, ar: `${hungry ? "أكتركم جوعان و" : ""}${cat.ar} ربح التصويت السري.${broke ? " عالميزانية، ما حدا بدو يتصنّع." : ""}` }, minutes: Math.min(maxMin, 15), price: broke ? "$" : "$$" }),
-      drinks: () => picks.push({ name: `${room.alcohol ? "Rooftop bar" : "Mocktail lounge"} within ${maxMin} min of ${area}`, type: { en: room.alcohol ? "Rooftop" : "Lounge", ar: room.alcohol ? "روف توب" : "لاونج" }, why: { en: "Fits everyone's distance limit and the loudest mood in the room.", ar: "مناسب لمسافة الكل وللمود الأعلى صوت بالغرفة." }, minutes: maxMin, price: "$$$" }),
-      talk: () => picks.push({ name: noShisha ? `Quiet café in ${area}` : `Shisha lounge terrace near ${area}`, type: { en: "Sit & talk", ar: "قعدة وحكي" }, why: { en: "Low volume, long conversation, nobody shouting.", ar: "صوت واطي، حكي طويل، ما حدا عم يصرّخ." }, minutes: Math.min(maxMin, 10), price: "$" }),
-      brunch: () => picks.push({ name: `${count("style", "buffet") ? "Big buffet brunch" : "À la carte brunch"} near ${area}`, type: { en: "Brunch", ar: "برانش" }, why: { en: "Matches the most popular style and the group's real wake-up time.", ar: "بيناسب النوع الأكتر شعبية ووقت الفيقة الحقيقي للشلة." }, minutes: Math.min(maxMin, 20), price: "$$" }),
-      activity: () => picks.push({ name: { cinema: "Cinema + dinner", games: "Bowling / karaoke night", sport: "Padel court session", outdoor: "Desert or kayak trip", live: "Comedy night" }[["cinema", "games", "sport", "outdoor", "live"].map(v => [v, count("type", v)]).sort((a, b) => b[1] - a[1])[0][0]] + ` near ${area}`, type: { en: "Activity", ar: "نشاط" }, why: { en: "The activity most of you secretly picked.", ar: "النشاط اللي أكتركم اختارو بالسر." }, minutes: maxMin, price: "$$" }),
-      night: () => picks.push({ name: `Lively ${room.alcohol ? "bar" : "lounge"} with music near ${area}`, type: { en: "Night out", ar: "سهرة" }, why: { en: "The group wants noise. Someone wants to dance. Both covered.", ar: "الشلة بدها صوت. حدا بدو يرقص. التنين مغطيين." }, minutes: maxMin, price: "$$$" }),
-    };
-    (bySubject[room.subject] || bySubject.food)();
-    picks.push(chill ? { name: noShisha ? `Quiet café / dessert place in ${area}` : `Shisha lounge terrace near ${area}`, type: { en: "Chill & talk", ar: "هدوء وحكي" }, why: { en: "The chill crowd outnumbers the loud crowd tonight.", ar: "جماعة الهدوء أكتر من جماعة الصوت الليلة." }, minutes: Math.min(maxMin, 10), price: "$" }
-      : { name: `Lively rooftop / live-music spot within ${maxMin} min of ${area}`, type: { en: "Loud & buzzing", ar: "صوت وحياة" }, why: { en: "The group wants noise. Someone wants to dance. Give them both.", ar: "الشلة بدها صوت. حدا بدو يرقص. اعطيهم التنين." }, minutes: maxMin, price: "$$$" });
-    picks.push({ name: count("mood", "outdoor") ? "Beach walk or JBR / Marina promenade" : "Board-game café or karaoke room", type: { en: "Wildcard", ar: "خيار مجنون" }, why: { en: "The option nobody suggested but nobody can veto with a straight face.", ar: "الخيار اللي ما حدا اقترحو بس ما حدا بيقدر يرفضو بوجه جدّي." }, minutes: Math.min(maxMin, 20), price: "$" });
-    const roasts = P.map(p => { const a = p.answers;
-      const r = a.distance === "5" ? { en: "would cancel if the venue is on the other side of the street.", ar: "بيلغي إذا المكان عالطرف التاني من الشارع." }
+  // Score suggestions from the reaction questions; generic answers only feed the roasts.
+  function fallbackVerdict(room) {
+    const W = { love: 3, fine: 2, meh: 1, no: -2 };
+    const picks = room.players.filter(p => p.suggestion).map(p => {
+      const qid = "s" + p.id.slice(0, 4); let pts = 0, votes = 0, nos = 0;
+      for (const o of room.players) { const v = o.answers[qid]; if (!v) continue; votes++; pts += W[v] ?? 0; if (v === "no") nos++; }
+      const score = votes ? Math.max(0, Math.round(((pts / (votes * 3)) * 100))) : 50;
+      return { suggestion_id: p.id.slice(0, 4), name: p.suggestion, score, nos, why: nos ? { en: `${nos} hard no${nos > 1 ? "s" : ""}. Someone will sulk.`, ar: `${nos} رفض قاطع. حدا رح يزعل.` } : votes ? { en: `Nobody hated it. In this group, that's a miracle.`, ar: `ما حدا كرهو. بهالشلة هاد إعجاز.` } : { en: "Nobody got asked about it. Lucky.", ar: "ما حدا انسأل عنو. محظوظ." } };
+    }).sort((a, b) => b.score - a.score || a.nos - b.nos);
+    const roasts = room.players.map(p => { const a = p.answers;
+      const r = a.distance === "5" ? { en: "would cancel if the venue is across the street.", ar: "بيلغي إذا المكان عالطرف التاني من الشارع." }
         : a.budget === "unlimited" ? { en: "is paying tonight. Pass it on.", ar: "عم يدفع الليلة. خبّروا الكل." }
         : a.energy === "dead" ? { en: "came only because leaving the house was already too much effort.", ar: "إجا بس لأنو الطلعة من البيت كانت أصلاً مجهود." }
         : a.time === "sunrise" ? { en: "has no plans tomorrow and wants you to know it.", ar: "ما عندو شي بكرا وبدو الكل يعرف." }
-        : a.hunger === "dessert" ? { en: "skipped dinner to be emotionally available for dessert.", ar: "تخطّى العشا ليكون جاهز عاطفياً للحلو." }
+        : Object.values(a).filter(v => v === "no").length >= 2 ? { en: "said no to everything. Including their own idea, probably.", ar: "قال لأ لكل شي. حتى لفكرتو على الأغلب." }
         : { en: "answered like a diplomat. Suspicious.", ar: "جاوب متل الدبلوماسيين. مريب." };
       return { player: p.name, ...r }; });
-    const dr = P.find(p => p.answers.status === "driving");
-    return { headline: null, picks: picks.slice(0, 3), roasts, driver: dr ? dr.name : null };
+    const dr = room.players.find(p => p.answers.status === "driving");
+    return { headline: null, picks, roasts, driver: dr ? dr.name : null };
   }
-  return { QUESTIONS, PACKS, packFor, ruleVerdict };
+  return { QUESTIONS, fallbackPool, fallbackVerdict };
 });
